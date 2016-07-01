@@ -1,0 +1,7 @@
+﻿#hero {
+    height: 620px;
+    position: relative;
+    width: inherit;
+    background-image:url(/Areas/TruGreen/content/images/lp2_hero_bck.jpg);
+}
+

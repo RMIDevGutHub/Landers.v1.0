@@ -1,0 +1,80 @@
+﻿@{
+    Landers.v1.Controllers.HomeController cn = ViewContext.Controller as Landers.v1.Controllers.HomeController;
+    Landers.v1.Areas.TruGreen.Models.TrugreenFormModel truModel = new Landers.v1.Areas.TruGreen.Models.TrugreenFormModel();
+
+    string testView = string.Empty;
+}
+
+@model Landers.Domain.TestManager
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="http://www.nyctrl32.com/js/63059.js"></script>
+    <noscript><img src="http://www.nyctrl32.com/63059.png" style="display:none;" /></noscript>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="msvalidate.01" content="758CDA6AC04918C2398F4115D9F239E7" />
+    <meta name="google-site-verification" content="1eq2QI5z0X4zAv7--yQ0NTIA-CuF9-D0MQLjT2PFu5U" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="@ViewBag.Description">
+    
+    <link href="~/Content/_1col_vert_heroform_site.css" rel="stylesheet" />
+    <!-- large tablets --->
+    <link rel="stylesheet" type="text/css" media="screen and (max-width: 980px)" href="/Content/large-mobile-devices.css" />
+    <!-- medium tablets --->
+    <link rel="stylesheet" type="text/css" media="screen and (max-width: 854px)" href="/Content/mid-mobile-devices.css" />
+    <!-- small devices --->
+    <link rel="stylesheet" type="text/css" media="screen and (max-width: 641px)" href="/Content/small-mobile-devices.css" />
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootbox.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.maskedinput.min.js"></script>
+
+    @Scripts.Render("~/Scripts/form.js")
+    @Scripts.Render("~/Scripts/rmilanders-1.0.js")
+
+    @*-- typeKit ------*@
+    <script src="https://use.typekit.net/zho7ncp.js"></script>
+    <script>try { Typekit.load({ async: true }); } catch (e) { }</script>
+</head>
+<body class="container-fluid">
+    <div id="header-container" class="row-fluid">
+        <div class="content-wrapper">
+            @{ testView = String.Format("{0}", cn.ReturnView(ViewBag.ViewName, "_header", ViewBag.Client, Model, ViewBag.DeviceType));}
+            @Html.Partial(testView, true)
+        </div>
+    </div>
+    <div id="body" class="row-fluid">
+        <div id="hero2" class="content-wrapper">
+            @{ testView = String.Format("{0}", cn.ReturnView(ViewBag.ViewName, "_hero", ViewBag.Client, Model, ViewBag.DeviceType));}
+            @Html.Partial(testView, truModel)
+            <div class="clear"></div>
+        </div>
+        <div id="body" class="content-wrapper row-fluid">
+            @RenderBody()
+        </div>
+    </div>
+    <div id="footer" class="row-fluid">
+        <div class="content-wrapper row-fluid">
+            @{ testView = String.Format("{0}", cn.ReturnView(ViewBag.ViewName, "_footer", ViewBag.Client, Model, ViewBag.DeviceType));}
+            @Html.Partial(testView, true)
+        </div>
+    </div>
+
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K4HWTB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    @Html.Partial("_privacypolicy")
+    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/Scripts/body-scripts.js")
+</body>
+</html>

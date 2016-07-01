@@ -1,0 +1,132 @@
+﻿@model Landers.v1.Areas.TruGreen.Models.TrugreenFormModel
+@{
+
+    string actionUrl = "/ajax/submit-lead/";
+    AjaxOptions options = new AjaxOptions
+    {
+        HttpMethod = "Post",
+        OnSuccess = "formStep2Success",
+        OnFailure = "formSubmitFailure2",
+        Url = actionUrl
+    };
+
+}
+
+<div id="hero" class="content-wrapper">
+    <h1>
+        TruGreen Gets<br />
+        You Guaranteed<br />
+        Results
+    </h1>
+
+    <div class="formstep step1">
+        <div class="step1headerrow">
+            <img class="trg1" src="/Content/Images/trugreen-d75-binglogo.png" />
+            <img class="trg2" src="/Content/Images/trugreen-d75-step1offer.png" />
+            <p>Call today to get your <br /><strong>FREE Quote!</strong></p>
+            <span>Or enter your zip code below:</span>
+        </div>
+        <div class="row">
+            @Html.TextBoxFor(model => model.Zip, new
+        {
+            @class = "Step2zip input-xlarge",
+            onkeypress = "return numbersOnly(event)",
+            maxlength = "5",
+            @tabindex = "1"
+        })
+            <input tabindex="2" type="submit" class="s1" onclick="step1Submitting(this, '#imgLoader');" value="" />
+        </div>
+    </div>
+
+    <div class="forms2 step2">
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $("#Phone").mask("999-999-9999?");
+            });
+        </script>
+
+        @using (Ajax.BeginForm(options))
+        {
+            @Html.ValidationSummary(false, "The following fields have errors", new { style = "display:none;" })
+            <div class="s2headerrow">
+                <img src="/Content/Images/trugreen-d75-binglogo.png" />
+                <span>Thank You! We see that we have service in your area <strong id="pitchcity"></strong> <strong id="pitchstate"></strong>.</span>
+                <p>We need just a few more details to get you started!</p>
+            </div>
+            <div class="clear;"></div>
+            <div class="row">
+                @Html.TextBoxFor(model => model.FirstName, new
+   {
+       @id = "firstName",
+       @class = "firstName"
+   })
+                @Html.TextBoxFor(model => model.LastName, new
+   {
+       @id = "lastName",
+       @class = "lastName"
+   })
+            </div>
+            <div class="row">
+                @Html.TextBoxFor(model => model.Address, new
+   {
+       @id = "address",
+       @class = "address input-xlarge"
+   })
+            </div>
+            <div class="row row2">
+                @Html.TextBoxFor(model => model.City, new
+   {
+       @id = "city2",
+       @class = "city"
+   })
+                @*@Html.DropDownListFor(model => model.State, new SelectList(LayoutHelpers.StatesListAbbr, "key", "value", String.Empty), "ST", new { @id = "state" })*@
+                @Html.TextBoxFor(model => model.Zip, new
+   {
+       @id = "zip",
+       @class = "zip",
+       maxlength = 5
+   })
+            </div>
+            <div class="row">
+                @Html.TextBoxFor(model => model.Phone, new
+   {
+       @id = "phone",
+       @class = "phone"
+   })
+                @Html.TextBoxFor(model => model.Email, new
+   {
+       @id = "email",
+       @class = "email"
+   })
+            </div>
+            <input type='hidden' id="Page" name="Page" value="@Request.FilePath" />
+            @Html.Hidden("PageNumber", "855-239-0086")
+            @Html.Hidden("Tg", "FormRight")
+            @Html.Hidden("RentOrOwn", true)
+            <div style="clear:both;"></div>
+            <div class="legalbox">
+                @*<p>@Html.FormLegal()</p>*@
+            </div>
+            <div style="clear:both;"></div>
+            <div class="buttonblank">
+                <input type="submit" onclick="formSubmitting(this, '#imgLoader');" class="s2" value="" />
+                <img src="/Content/Images/ajax-loader.gif" style="display: none;" id="imgLoader" />
+            </div>
+        }
+    </div>
+
+    <div class="forms2 step3">
+        <div class="formheaderd53">
+        </div>
+        <div class="step3headerrow">
+            <span>@ViewBag.ThanksHeader</span>
+        </div>
+        <div class="s3row">
+            <p>A representative will contact you shortly! If you would like to call us right away, simply dial the number below!</p>
+            <span>855-239-0086</span>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+</div>
+

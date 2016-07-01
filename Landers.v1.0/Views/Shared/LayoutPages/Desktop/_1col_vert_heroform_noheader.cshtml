@@ -1,0 +1,84 @@
+﻿@{
+    //string areaLocation = String.Format("{0}/{1}/", ViewBag.Client, ViewBag.ViewType);
+    Landers.v1.Controllers.HomeController cn = ViewContext.Controller as Landers.v1.Controllers.HomeController;
+    string testView = string.Empty;
+    string landerSpecificScript = String.Format("{0}_landerscripts.js", ViewBag.ViewNumber);
+}
+@model Landers.Domain.TestManager
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    @*
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="http://www.nyctrl32.com/js/63059.js"></script>
+        <noscript><img src="http://www.nyctrl32.com/63059.png" style="display:none;" /></noscript>
+        <meta name="msvalidate.01" content="758CDA6AC04918C2398F4115D9F239E7" />
+        <meta name="google-site-verification" content="1eq2QI5z0X4zAv7--yQ0NTIA-CuF9-D0MQLjT2PFu5U" />
+        <meta name="viewport" content="width=device-width" />
+    *@
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="description" content="@ViewBag.Description">
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/cdn")
+    <link rel="stylesheet" href="~/Areas/TruGreen/Content/css/@String.Format("{0}.css", ViewBag.ViewName)" />
+
+
+    @Scripts.Render("~/Scripts/bootStrap")
+    @Scripts.Render("~/Scripts/jQueryValidate")
+    @Scripts.Render("~/Scripts/jQuery")
+    @Scripts.Render("~/Scripts/jQueryUi")
+
+
+
+
+    <!-- large tablets --->
+    @*<link rel="stylesheet" type="text/css" media="screen and (max-width: 980px)" href="/Content/large-mobile-devices.css" />
+    <!-- medium tablets --->
+    <link rel="stylesheet" type="text/css" media="screen and (max-width: 854px)" href="/Content/mid-mobile-devices.css" />
+    <!-- small devices --->
+    <link rel="stylesheet" type="text/css" media="screen and (max-width: 641px)" href="/Content/small-mobile-devices.css" />*@
+    <!-- bootstrap --->
+    @*<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">*@
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>*@
+    @*<script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/Scripts/bootbox.min.js"></script>
+    <script src="~/Scripts/jquery.maskedinput.min.js"></script>
+    <script src="~/Scripts/landerFormBase.js"></script>*@
+
+    @*-- typeKit ------*@
+    <script src="https://use.typekit.net/zho7ncp.js"></script>
+    <script>try { Typekit.load({ async: true }); } catch (e) { }</script>
+</head>
+<body id="@ViewBag.LayoutPage" class="container-fluid">
+    <div id="body-container" class="row-fluid">
+        <div id="hero" class="content-wrapper">
+            @{ testView = String.Format("{0}", cn.ReturnView(ViewBag.ViewName, "_hero", ViewBag.Client, Model, ViewBag.DeviceType));}
+            @Html.Partial(testView, true)
+            <div class="clear"></div>
+        </div>
+        
+        <div id="body" class="content-wrapper row-fluid">
+            @RenderBody()
+        </div>
+    </div>
+    <div id="footer" class="row-fluid">
+        @{ testView = String.Format("{0}", cn.ReturnView(ViewBag.ViewName, "_footer", ViewBag.Client, Model, ViewBag.DeviceType));}
+        @Html.Partial(testView, true)
+    </div>
+
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K4HWTB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    @Html.Partial("_privacypolicy")
+    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/Scripts/body-scripts.js")
+</body>
+</html>

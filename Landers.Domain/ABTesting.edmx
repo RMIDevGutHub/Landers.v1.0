@@ -1,0 +1,504 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ABTestingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ABTesting.dbo.ABTests' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ABTests">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DeviceTypeId" />
+          </Key>
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptiveName" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="SiteId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="DeviceTypeId" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Enabled" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ABTesting.dbo.ConversionResults' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ConversionResults">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Impression" Type="int" />
+          <Property Name="VariationId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SubmitUrl" Type="nvarchar" MaxLength="250" />
+          <Property Name="Referrer" Type="nvarchar" MaxLength="300" />
+          <Property Name="LeadId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ABTesting.dbo.DeviceType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DeviceType">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Enabled" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Min-Width" Type="nvarchar" MaxLength="4" />
+          <Property Name="Enabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ABTesting.dbo.MasterLayoutTemplates' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MasterLayoutTemplates">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Enabled" />
+          </Key>
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemplateName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Enabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ABTesting.dbo.Replacements' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Replacements">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Enabled" />
+          </Key>
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VariationId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Find" Type="nvarchar(max)" />
+          <Property Name="Replace" Type="nvarchar(max)" />
+          <Property Name="Enabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ABTesting.dbo.Sites' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Sites">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiteName" Type="nvarchar(max)" />
+          <Property Name="Url" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ABTesting.dbo.Variations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Variations">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DefaultView" />
+            <PropertyRef Name="Base" />
+            <PropertyRef Name="Template" />
+            <PropertyRef Name="Impressions" />
+          </Key>
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Variation" Type="nvarchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="ViewName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DefaultView" Type="bit" Nullable="false" />
+          <Property Name="Base" Type="bit" Nullable="false" />
+          <Property Name="Template" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Impressions" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <Function Name="sp_CheckIfInATest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="url" Type="nvarchar" Mode="In" />
+          <Parameter Name="deviceType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetandUpdateVariationsInformation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="testId" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="sp_GetBaseReplacements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Url" Type="nvarchar" Mode="In" />
+          <Parameter Name="Bool" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_GetReplacements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Url" Type="nvarchar" Mode="In" />
+          <Parameter Name="Bool" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_GetTestInformation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="url" Type="nvarchar" Mode="In" />
+          <Parameter Name="dviceType" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ABTestingModelStoreContainer">
+          <EntitySet Name="ABTests" EntityType="Self.ABTests" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ABTests].[Id] AS [Id], 
+    [ABTests].[DescriptiveName] AS [DescriptiveName], 
+    [ABTests].[Description] AS [Description], 
+    [ABTests].[SiteId] AS [SiteId], 
+    [ABTests].[DeviceTypeId] AS [DeviceTypeId], 
+    [ABTests].[DateCreated] AS [DateCreated], 
+    [ABTests].[StartDate] AS [StartDate], 
+    [ABTests].[EndDate] AS [EndDate], 
+    [ABTests].[Enabled] AS [Enabled]
+    FROM [dbo].[ABTests] AS [ABTests]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ConversionResults" EntityType="Self.ConversionResults" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ConversionResults].[Id] AS [Id], 
+    [ConversionResults].[TestId] AS [TestId], 
+    [ConversionResults].[Impression] AS [Impression], 
+    [ConversionResults].[VariationId] AS [VariationId], 
+    [ConversionResults].[SubmitUrl] AS [SubmitUrl], 
+    [ConversionResults].[Referrer] AS [Referrer], 
+    [ConversionResults].[LeadId] AS [LeadId]
+    FROM [dbo].[ConversionResults] AS [ConversionResults]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DeviceType" EntityType="Self.DeviceType" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DeviceType].[Id] AS [Id], 
+    [DeviceType].[Name] AS [Name], 
+    [DeviceType].[Min-Width] AS [Min-Width], 
+    [DeviceType].[Enabled] AS [Enabled]
+    FROM [dbo].[DeviceType] AS [DeviceType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MasterLayoutTemplates" EntityType="Self.MasterLayoutTemplates" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MasterLayoutTemplates].[Id] AS [Id], 
+    [MasterLayoutTemplates].[TemplateName] AS [TemplateName], 
+    [MasterLayoutTemplates].[Enabled] AS [Enabled]
+    FROM [dbo].[MasterLayoutTemplates] AS [MasterLayoutTemplates]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Replacements" EntityType="Self.Replacements" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Replacements].[Id] AS [Id], 
+    [Replacements].[VariationId] AS [VariationId], 
+    [Replacements].[Find] AS [Find], 
+    [Replacements].[Replace] AS [Replace], 
+    [Replacements].[Enabled] AS [Enabled]
+    FROM [dbo].[Replacements] AS [Replacements]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Sites" EntityType="Self.Sites" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Sites].[Id] AS [Id], 
+    [Sites].[SiteName] AS [SiteName], 
+    [Sites].[Url] AS [Url]
+    FROM [dbo].[Sites] AS [Sites]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Variations" EntityType="Self.Variations" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Variations].[Id] AS [Id], 
+    [Variations].[TestId] AS [TestId], 
+    [Variations].[Variation] AS [Variation], 
+    [Variations].[Description] AS [Description], 
+    [Variations].[ViewName] AS [ViewName], 
+    [Variations].[DefaultView] AS [DefaultView], 
+    [Variations].[Base] AS [Base], 
+    [Variations].[Template] AS [Template], 
+    [Variations].[Impressions] AS [Impressions]
+    FROM [dbo].[Variations] AS [Variations]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ABTestingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ABTest">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DeviceTypeId" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptiveName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SiteId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DeviceTypeId" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Enabled" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ConversionResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Impression" Type="Int32" />
+          <Property Name="VariationId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SubmitUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Referrer" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LeadId" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DeviceType">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Enabled" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Min_Width" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MasterLayoutTemplate">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Enabled" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Replacement">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Enabled" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VariationId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Find" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Replace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Site">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiteName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Variation">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DefaultView" />
+            <PropertyRef Name="Base" />
+            <PropertyRef Name="Template" />
+            <PropertyRef Name="Impressions" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Variation1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ViewName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DefaultView" Type="Boolean" Nullable="false" />
+          <Property Name="Base" Type="Boolean" Nullable="false" />
+          <Property Name="Template" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Impressions" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ABTestingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ABTests" EntityType="Self.ABTest" />
+          <EntitySet Name="ConversionResults" EntityType="Self.ConversionResult" />
+          <EntitySet Name="DeviceTypes" EntityType="Self.DeviceType" />
+          <EntitySet Name="MasterLayoutTemplates" EntityType="Self.MasterLayoutTemplate" />
+          <EntitySet Name="Replacements" EntityType="Self.Replacement" />
+          <EntitySet Name="Sites" EntityType="Self.Site" />
+          <EntitySet Name="Variations" EntityType="Self.Variation" />
+          <FunctionImport Name="sp_CheckIfInATest" ReturnType="Collection(Int32)">
+            <Parameter Name="url" Mode="In" Type="String" />
+            <Parameter Name="deviceType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetandUpdateVariationsInformation" ReturnType="Collection(ABTestingModel.sp_GetandUpdateVariationsInformation_Result)">
+            <Parameter Name="testId" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetBaseReplacements" ReturnType="Collection(ABTestingModel.sp_GetBaseReplacements_Result)">
+            <Parameter Name="Url" Mode="In" Type="String" />
+            <Parameter Name="Bool" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetReplacements" ReturnType="Collection(ABTestingModel.sp_GetReplacements_Result)">
+            <Parameter Name="Url" Mode="In" Type="String" />
+            <Parameter Name="Bool" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetTestInformation" ReturnType="Collection(ABTestingModel.sp_GetTestInformation_Result)">
+            <Parameter Name="url" Mode="In" Type="String" />
+            <Parameter Name="dviceType" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_GetandUpdateVariationsInformation_Result">
+          <Property Type="Decimal" Name="Id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="TestId" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="Variation" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="String" Name="ViewName" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="DefaultView" Nullable="false" />
+          <Property Type="Boolean" Name="Base" Nullable="false" />
+          <Property Type="String" Name="TemplateName" Nullable="true" MaxLength="150" />
+          <Property Type="Decimal" Name="Impressions" Nullable="false" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="sp_GetBaseReplacements_Result">
+          <Property Type="Decimal" Name="ReplacementId" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="VariationId" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="Find" Nullable="true" />
+          <Property Type="String" Name="Replace" Nullable="true" />
+          <Property Type="Boolean" Name="Enabled" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_GetReplacements_Result">
+          <Property Type="Decimal" Name="ReplacementId" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="VariationId" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="Find" Nullable="true" />
+          <Property Type="String" Name="Replace" Nullable="true" />
+          <Property Type="Boolean" Name="Enabled" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_GetTestInformation_Result">
+          <Property Type="Decimal" Name="Id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="DescriptiveName" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Decimal" Name="SiteId" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="StartDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ABTestingModelStoreContainer" CdmEntityContainer="ABTestingEntities">
+          <EntitySetMapping Name="ABTests">
+            <EntityTypeMapping TypeName="ABTestingModel.ABTest">
+              <MappingFragment StoreEntitySet="ABTests">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DescriptiveName" ColumnName="DescriptiveName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+                <ScalarProperty Name="DeviceTypeId" ColumnName="DeviceTypeId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConversionResults">
+            <EntityTypeMapping TypeName="ABTestingModel.ConversionResult">
+              <MappingFragment StoreEntitySet="ConversionResults">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="Impression" ColumnName="Impression" />
+                <ScalarProperty Name="VariationId" ColumnName="VariationId" />
+                <ScalarProperty Name="SubmitUrl" ColumnName="SubmitUrl" />
+                <ScalarProperty Name="Referrer" ColumnName="Referrer" />
+                <ScalarProperty Name="LeadId" ColumnName="LeadId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceTypes">
+            <EntityTypeMapping TypeName="ABTestingModel.DeviceType">
+              <MappingFragment StoreEntitySet="DeviceType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Min_Width" ColumnName="Min-Width" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterLayoutTemplates">
+            <EntityTypeMapping TypeName="ABTestingModel.MasterLayoutTemplate">
+              <MappingFragment StoreEntitySet="MasterLayoutTemplates">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Replacements">
+            <EntityTypeMapping TypeName="ABTestingModel.Replacement">
+              <MappingFragment StoreEntitySet="Replacements">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VariationId" ColumnName="VariationId" />
+                <ScalarProperty Name="Find" ColumnName="Find" />
+                <ScalarProperty Name="Replace" ColumnName="Replace" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sites">
+            <EntityTypeMapping TypeName="ABTestingModel.Site">
+              <MappingFragment StoreEntitySet="Sites">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Variations">
+            <EntityTypeMapping TypeName="ABTestingModel.Variation">
+              <MappingFragment StoreEntitySet="Variations">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="Variation1" ColumnName="Variation" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ViewName" ColumnName="ViewName" />
+                <ScalarProperty Name="DefaultView" ColumnName="DefaultView" />
+                <ScalarProperty Name="Base" ColumnName="Base" />
+                <ScalarProperty Name="Template" ColumnName="Template" />
+                <ScalarProperty Name="Impressions" ColumnName="Impressions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_CheckIfInATest" FunctionName="ABTestingModel.Store.sp_CheckIfInATest" />
+          <FunctionImportMapping FunctionImportName="sp_GetandUpdateVariationsInformation" FunctionName="ABTestingModel.Store.sp_GetandUpdateVariationsInformation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ABTestingModel.sp_GetandUpdateVariationsInformation_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="Variation" ColumnName="Variation" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ViewName" ColumnName="ViewName" />
+                <ScalarProperty Name="DefaultView" ColumnName="DefaultView" />
+                <ScalarProperty Name="Base" ColumnName="Base" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="Impressions" ColumnName="Impressions" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetBaseReplacements" FunctionName="ABTestingModel.Store.sp_GetBaseReplacements">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ABTestingModel.sp_GetBaseReplacements_Result">
+                <ScalarProperty Name="ReplacementId" ColumnName="ReplacementId" />
+                <ScalarProperty Name="VariationId" ColumnName="VariationId" />
+                <ScalarProperty Name="Find" ColumnName="Find" />
+                <ScalarProperty Name="Replace" ColumnName="Replace" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetReplacements" FunctionName="ABTestingModel.Store.sp_GetReplacements">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ABTestingModel.sp_GetReplacements_Result">
+                <ScalarProperty Name="ReplacementId" ColumnName="ReplacementId" />
+                <ScalarProperty Name="VariationId" ColumnName="VariationId" />
+                <ScalarProperty Name="Find" ColumnName="Find" />
+                <ScalarProperty Name="Replace" ColumnName="Replace" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetTestInformation" FunctionName="ABTestingModel.Store.sp_GetTestInformation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ABTestingModel.sp_GetTestInformation_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DescriptiveName" ColumnName="DescriptiveName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
